@@ -9,7 +9,6 @@ const {
   MONGO_PORT,
 } = require("./config/config");
 
-redisClient.connect().catch(console.error);
 const app = express();
 
 const postRoutes = require("./routes/postRoutes");

@@ -2,8 +2,7 @@ const Post = require("../models/postSchema");
 
 exports.getAllPost = async (req, res) => {
   try {
-    const posts = await Post.find();
-    console.log("hello");
+    const posts = await Post.find();s
     res.status(200).json({
       status: "success",
       nbHits: posts.length,
