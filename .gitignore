@@ -2,3 +2,4 @@
 docker-compose*
 nginx
 node*
+Dockerfile

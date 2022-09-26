@@ -54,8 +54,8 @@ function App() {
     e.preventDefault();
     if (note.title && note.body) {
       postNote();
+      fetchPosts();
     }
-    fetchPosts();
     setNote({
       title: "",
       body: "",

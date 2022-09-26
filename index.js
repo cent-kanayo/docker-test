@@ -1,28 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require("express-session");
 const cors = require("cors");
-
-const { createClient } = require("redis");
-let RedisStore = require("connect-redis")(session);
 
 const {
   MONGO_USER,
   MONGO_PASSWORD,
   MONGO_IP,
   MONGO_PORT,
-  SESSION_SECRET,
-  REDIS_PORT,
-  REDIS_URL,
 } = require("./config/config");
-
-let redisClient = createClient({
-  legacyMode: true,
-  socket: {
-    port: REDIS_PORT,
-    host: REDIS_URL,
-  },
-});
 
 redisClient.connect().catch(console.error);
 const app = express();
@@ -32,19 +17,6 @@ const userRoutes = require("./routes/userRoutes");
 app.use(cors({}));
 app.use(express.json());
 app.enable("trust proxy");
-app.use(
-  session({
-    store: new RedisStore({ client: redisClient }),
-    secret: "myjnjf;nnj;kj;okmko'ipo'",
-    cookie: {
-      secure: false,
-      resave: false,
-      saveUninitialized: false,
-      httpOnly: true,
-      maxAge: 3000000,
-    },
-  })
-);
 
 app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/users", userRoutes);
